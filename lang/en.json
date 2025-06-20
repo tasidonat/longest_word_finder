@@ -1,0 +1,9 @@
+{
+    "downloading": "Downloading word list...",
+    "downloaded": "Word list downloaded successfully.",
+    "download_error": "Could not proceed without a word list.",
+    "input_letters": "Enter the letters you have: ",
+    "result": "The longest word you can make is: {result}",
+    "no_word": "No word could be made from the letters provided.",
+    "bad_url_link": "No word list URL configured for language: {language}"
+}

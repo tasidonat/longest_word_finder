@@ -1,0 +1,9 @@
+{
+    "downloading": "Szólista letöltése...",
+    "downloaded": "Szólista sikeresen letöltve.",
+    "download_error": "Nem lehet folytatni szólista nélkül.",
+    "input_letters": "Add meg a rendelkezésre álló betűket: ",
+    "result": "A leghosszabb szó, amit kirakhatsz: {result}",
+    "no_word": "Nem lehetett szót kirakni a megadott betűkből.",
+    "bad_url_link": "Nincs beállítva szólista URL a nyelvhez: {language}"
+}

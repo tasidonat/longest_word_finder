@@ -1,5 +1,20 @@
 import collections
 import urllib.request
+import json
+import os
+
+def load_config():
+    try:
+        with open("config.json", "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error loading config: {e}")
+        return {"language": "en"}
+    
+def load_lang_strings(language):
+    lang_path = os.path.join("lang", f"{language}.json")
+    with open(lang_path, "r", encoding="utf-8") as file:
+        return json.load(file)
 
 def download_word_list(url):
     try:
@@ -33,24 +48,32 @@ def find_longest_word(letters, word_list):
     return longest_word
 
 def main():
-    WORD_LIST_URL = "https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt"
+    config = load_config()
+    language = config.get("language", "en")
+    word_list_url = config.get("word_list_url", {}).get(language)
 
-    print("Downloading word list...")
-    word_list = download_word_list(WORD_LIST_URL)
-
-    if not word_list:
-        print("Could not proceed without a word list.")
+    if not word_list_url:
+        print(lang_strings["bad_url_link"].format(language=language))
         return
 
-    print("Word list downloaded successfully.")
-    input_letters = input("Enter the letters you have: ")
+    lang_strings = load_lang_strings(language)
+
+    print(lang_strings["downloading"])
+    word_list = download_word_list(word_list_url)
+
+    if not word_list:
+        print(lang_strings["download_error"])
+        return
+
+    print(lang_strings["downloaded"])
+    input_letters = input(lang_strings["input_letters"])
 
     result = find_longest_word(input_letters, word_list)
 
     if result:
-        print(f"The longest word you can make is: {result}")
+        print(lang_strings["result"].format(result=result))
     else:
-        print("No word could be made from the letters provided.")
+        print(lang_strings["no_word"])
 
 if __name__ == "__main__":
     main()
